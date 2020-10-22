@@ -7,15 +7,12 @@ Build all of your functions for displaying and gathering information below (GUI)
 function app(people){
   let searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
   let searchResults;
-  let promptTrait;
   switch(searchType){
     case 'yes':
       searchResults = searchByName(people);
       break;
     case 'no':
-      promptTrait = prompt("What trait do you know of the person? 'gender', 'eyeColor', 'dob', or 'occupation");
-      searchResults = searchByTrait(people, promptTrait);
-      displayPeople(searchResults);
+      searchResults = traits(people);
       break;
       default:
     app(people); // restart app
@@ -24,6 +21,22 @@ function app(people){
   
   // Call the mainMenu function ONLY after you find the SINGLE person you are looking for
   mainMenu(searchResults, people);
+}
+
+function traits(people){
+  let traits = ["gender","eyeColor","dob","occupation"]
+  let moreTraits = "yes";
+  let searchResults = people;
+  while(moreTraits == "yes"){
+    let promptTrait = prompt("What trait do you know of the person? Enter one of the following: " + traits.join(", "));
+    searchResults = searchByTrait(searchResults, promptTrait);
+    displayPeople(searchResults);
+    moreTraits = promptFor("Do you know any other traits? Enter 'yes' or 'no'", yesNo).toLowerCase();
+    let indexTrait = traits.indexOf(promptTrait);
+    traits.splice(indexTrait, 1);
+  }
+  
+
 }
 
 // Menu function to call once you find who you are looking for
