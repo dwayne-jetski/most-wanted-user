@@ -24,7 +24,7 @@ function app(people){
 }
 
 function traits(people){
-  let traits = ["gender","eyeColor","dob","occupation"]
+  let traits = ["gender","eyeColor","dob","occupation","height","weight"];
   let moreTraits = "yes";
   let searchResults = people;
   while(moreTraits == "yes"){
