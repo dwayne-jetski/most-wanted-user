@@ -37,17 +37,19 @@ function mainMenu(person, people){
   }
 
   let displayOption = prompt("Found " + person[0].firstName + " " + person[0].lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
-
+  let id;
   switch(displayOption){
     case "info":
     alert(person[0].firstName + " " + person[0].lastName +"'s info: \n" + displayInfo(person));
     break;
     case "family":
-      let id = person[0].id
+      id = person[0].id;
     alert(displayInfo(findSpouse(id, people)));
     break;
     case "descendants":
-    // TODO: get person's descendants
+      id = person[0].id;
+      let count = 0;
+      console.log(findDescendants(id, people, count));//(Jack Pafoy) (Annie Pafoy[13], Dave Pafoy [14], amii [15])
 
     break;
     case "restart":
@@ -59,6 +61,33 @@ function mainMenu(person, people){
     return mainMenu(person, people); // ask again
   }
 }
+
+/* STILL NEEDS A LOT OF WORK
+function findDescendants (id, people, count){
+  let descendantsArray = [];
+// need another way to re-define people.parents.includes(id)
+  
+
+  if(people[].parents.includes(id) === false && i === people.length -1 ){
+      return descendantsArray;
+    }
+    else{
+        //descendantsArray[count] = people.filter(function(person){ //got rid of descendantsArray[count] = at beginning of statement;
+        for(let j = 0; j < people.length; j++){
+        
+          if(people[j].parents.includes(id)){
+            descendantsArray.push(people[j]) ;
+            count++;
+            people.splice(j, 1)
+            
+            
+            findDescendants(id, people, count);
+          }
+      }
+    
+    }
+
+} */
 
 function findSpouse (id, people){
 
