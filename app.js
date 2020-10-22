@@ -41,10 +41,12 @@ function mainMenu(person, people){
     alert(person[0].firstName + " " + person[0].lastName +"'s info: \n" + displayInfo(person));
     break;
     case "family":
-    // TODO: get person's family
+      let id = person[0].id
+    alert(displayInfo(findSpouse(id, people)));
     break;
     case "descendants":
     // TODO: get person's descendants
+
     break;
     case "restart":
     app(people); // restart
@@ -54,6 +56,19 @@ function mainMenu(person, people){
     default:
     return mainMenu(person, people); // ask again
   }
+}
+
+function findSpouse (id, people){
+
+  let foundPerson = people.filter(function(person){
+    if(person.currentSpouse === id){
+    return true
+    }
+    else{
+      return false
+    }
+  });
+  return foundPerson;
 }
 
 function displayInfo(person){
