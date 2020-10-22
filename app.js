@@ -7,12 +7,14 @@ Build all of your functions for displaying and gathering information below (GUI)
 function app(people){
   let searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
   let searchResults;
+  let promptTrait;
   switch(searchType){
     case 'yes':
       searchResults = searchByName(people);
       break;
     case 'no':
-      searchResults = searchByGender(people);
+      promptTrait = prompt("What trait do you know of the person? 'gender', 'eyeColor', 'dob', or 'occupation");
+      searchResults = searchByTrait(people, promptTrait);
       displayPeople(searchResults);
       break;
       default:
@@ -91,11 +93,11 @@ function searchByName(people){
   return foundPerson;
 }
 
-function searchByGender(people){
-  let gender = promptFor("What is the person's gender? Type 'male' or 'female'", chars);
+function searchByTrait(people, trait){
+  let search = promptFor("What is the person's " + trait, chars);
 
   let foundPerson = people.filter(function(person){
-    if(person.gender === gender){
+    if(person[trait] == search){
       return true;
     }
     else{
