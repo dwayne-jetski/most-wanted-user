@@ -12,7 +12,8 @@ function app(people){
       searchResults = searchByName(people);
       break;
     case 'no':
-      
+      searchResults = searchByGender(people);
+      displayPeople(searchResults);
       break;
       default:
     app(people); // restart app
@@ -61,6 +62,20 @@ function searchByName(people){
 
   let foundPerson = people.filter(function(person){
     if(person.firstName === firstName && person.lastName === lastName){
+      return true;
+    }
+    else{
+      return false;
+    }
+  });
+  return foundPerson;
+}
+
+function searchByGender(people){
+  let gender = promptFor("What is the person's gender? Type 'male' or 'female'", chars);
+
+  let foundPerson = people.filter(function(person){
+    if(person.gender === gender){
       return true;
     }
     else{
