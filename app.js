@@ -62,8 +62,9 @@ function mainMenu(person, people){
     case "descendants":
       id = person[0].id;
       let count = 0;
-      console.log(findDescendants(id, people, count));//(Jack Pafoy) (Annie Pafoy[13], Dave Pafoy [14], amii [15])
-
+      let descendantsArray = [""];
+      descendantsArray = findDescendants(id, people, count, descendantsArray);//(Jack Pafoy) (Annie Pafoy[13], Dave Pafoy [14], amii [15])
+      console.log(descendantsArray[0])
     break;
     case "restart":
     app(people); // restart
@@ -75,32 +76,31 @@ function mainMenu(person, people){
   }
 }
 
-/* STILL NEEDS A LOT OF WORK
-function findDescendants (id, people, count){
-  let descendantsArray = [];
+//STILL NEEDS A LOT OF WORK
+function findDescendants (id, people, count, descendantsArray){
 // need another way to re-define people.parents.includes(id)
   
-
-  if(people[].parents.includes(id) === false && i === people.length -1 ){
+for(let i = 0; i<people.length; i++){
+  if(people[i].parents.includes(id) === false && i === people.length){
       return descendantsArray;
     }
     else{
         //descendantsArray[count] = people.filter(function(person){ //got rid of descendantsArray[count] = at beginning of statement;
-        for(let j = 0; j < people.length; j++){
+        //for(let j = 0; j < people.length; j++){
         
-          if(people[j].parents.includes(id)){
-            descendantsArray.push(people[j]) ;
+          if(people[i].parents.includes(id)){
+            descendantsArray[count] = people[i];
             count++;
-            people.splice(j, 1)
+            people.splice(i, 1)
+            console.log(descendantsArray[count-1]);
             
-            
-            findDescendants(id, people, count);
+            findDescendants(id, people, count, descendantsArray);
           }
-      }
+      //}
     
     }
-
-} */
+  }
+} 
 
 function findSpouse (id, people){
 
