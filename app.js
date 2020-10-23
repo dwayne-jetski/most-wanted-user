@@ -50,21 +50,25 @@ function mainMenu(person, people){
   }
 
   let displayOption = prompt("Found " + person[0].firstName + " " + person[0].lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
-  let id;
+  let id = [];
   switch(displayOption){
     case "info":
     alert(person[0].firstName + " " + person[0].lastName +"'s info: \n" + displayInfo(person));
     break;
     case "family":
       id = person[0].id;
-    alert(displayInfo(findSpouse(id, people)));
+      let parentsId = person[0].parents;
+      let family = [] 
+      family = findSiblings(parentsId, people, id);
+      family.push(findSpouse(id, people));
+      family = arrayCleanup(family);
+      displayPeople(family);
     break;
     case "descendants":
       id = person[0].id;
       let count = 0;
-      let descendantsArray = [""];
-      descendantsArray = findDescendants(id, people, count, descendantsArray);//(Jack Pafoy) (Annie Pafoy[13], Dave Pafoy [14], amii [15])
-      console.log(descendantsArray[0])
+      searchResults = findDescendants(id, people, );//(Jack Pafoy) (Annie Pafoy[13], Dave Pafoy [14], amii [15])
+      console.log(descendantsArray[0]+descendantsArray[1]+descendantsArray[2]);
     break;
     case "restart":
     app(people); // restart
@@ -76,31 +80,33 @@ function mainMenu(person, people){
   }
 }
 
+function arrayCleanup(array){
+  array = array.filter(function (el){
+    return el != null && el != '';
+  })
+
+  return array;
+}
+
 //STILL NEEDS A LOT OF WORK
-function findDescendants (id, people, count, descendantsArray){
-// need another way to re-define people.parents.includes(id)
-  
-for(let i = 0; i<people.length; i++){
-  if(people[i].parents.includes(id) === false && i === people.length){
-      return descendantsArray;
-    }
-    else{
-        //descendantsArray[count] = people.filter(function(person){ //got rid of descendantsArray[count] = at beginning of statement;
-        //for(let j = 0; j < people.length; j++){
-        
-          if(people[i].parents.includes(id)){
-            descendantsArray[count] = people[i];
-            count++;
-            people.splice(i, 1)
-            console.log(descendantsArray[count-1]);
-            
-            findDescendants(id, people, count, descendantsArray);
-          }
-      //}
-    
-    }
+function findDescendants (id, people, descendantsArray = []){
+
+ descendantsArray = people.filter(function(el){
+      return el.parents[0] === id || el.parents[1 === id] //id works if it's a variable, but if it's a array it won't work. otherwise function is good 
+    })    
+  displayPeople(descendantsArray)
+  id = [];
+  for(let i = 0; i<descendantsArray.length; i++){
+    id[i] = descendantsArray[i].id
   }
-} 
+
+  if (descendantsArray.length === 0){
+    return descendantsArray;
+  }
+  else {
+    findDescendants(id, people, descendantsArray)
+  }
+}
 
 function findSpouse (id, people){
 
@@ -114,6 +120,20 @@ function findSpouse (id, people){
   });
   return foundPerson;
 }
+
+function findSiblings (parentsId, people, id){
+
+  let foundPerson = people.filter(function(person){
+    if(person.parents.includes(parentsId[1] || parentsId[2]) && person.id != id){
+    return true
+    }
+    else{
+      return false
+    }
+  });
+  return foundPerson;
+}
+
 
 function displayInfo(person){
     let info = ("First Name: " + person[0].firstName + "\n" + "Last Name: " + person[0].lastName + "\n" + "Gender: " + person[0].gender + "\n" + "Date of Birtn: " + person[0].dob + "\n" + "Height: " + person[0].height + "\n" + "Weight: " + person[0].weight + "\n" + "Occupation: " + person[0].occupation);
