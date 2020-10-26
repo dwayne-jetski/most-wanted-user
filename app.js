@@ -67,8 +67,7 @@ function mainMenu(person, people){
     case "descendants":
       id = person[0].id;
       let count = 0;
-      searchResults = findDescendants(id, people, );//(Jack Pafoy) (Annie Pafoy[13], Dave Pafoy [14], amii [15])
-      console.log(descendantsArray[0]+descendantsArray[1]+descendantsArray[2]);
+      let searchResults = findDescendants(id, people, );//(Jack Pafoy) (Annie Pafoy[13], Dave Pafoy [14], amii [15])
     break;
     case "restart":
     app(people); // restart
@@ -89,25 +88,23 @@ function arrayCleanup(array){
 }
 
 //STILL NEEDS A LOT OF WORK
-function findDescendants (id, people, descendantsArray = []){
+ function findDescendants (id, people){
 
- descendantsArray = people.filter(function(el){
-      return el.parents[0] === id || el.parents[1 === id] //id works if it's a variable, but if it's a array it won't work. otherwise function is good 
+  let descendantsArray = people.filter(function(el){
+      return el.parents[0] === id || el.parents[1] === id //id works if it's a variable, but if it's a array it won't work. otherwise function is good 
     })    
-  displayPeople(descendantsArray)
-  id = [];
-  for(let i = 0; i<descendantsArray.length; i++){
-    id[i] = descendantsArray[i].id
+  
+  if(descendantsArray.length === 0){//if array comes back empty(i.e. person has no descendants) it will return before printing. 
+    return descendantsArray
   }
-
-  if (descendantsArray.length === 0){
-    return descendantsArray;
+  displayPeople(descendantsArray)//displays first name of people logged in descendantsArray
+  
+  for(let i = 0; i<descendantsArray.length; i++){//iterats descendantsArray to do individual recursive calls to find descendants of each person logged in descendantsArray
+    findDescendants(descendantsArray[i].id, people)
   }
-  else {
-    findDescendants(id, people, descendantsArray)
-  }
+  return descendantsArray
 }
-
+ 
 function findSpouse (id, people){
 
   let foundPerson = people.filter(function(person){
