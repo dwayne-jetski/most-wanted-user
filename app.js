@@ -35,6 +35,10 @@ function traits(people){
     if(searchResults.length == 1){
       break;
     }
+    else if (searchResults.length == 0){
+      alert("You've found no matches, the app will now restart.");
+      app(people);
+    }
     moreTraits = promptFor("Do you know any other traits? Enter 'yes' or 'no'", chars,['yes','no']).toLowerCase();
     if(moreTraits == 'no'){
       let promptNext = promptFor("You need to know more traits to narrow down the list. Do you want to 'restart', or 'view' the current list",chars,['restart','view']);
@@ -66,7 +70,7 @@ function mainMenu(person, people){
   }
 
   let displayOption = promptFor("Found " + person[0].firstName + " " + person[0].lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'",chars,['info','family','descendants','restart','quit']);
-  let id = [];
+  let id; 
   switch(displayOption){
     case "info":
     alert(person[0].firstName + " " + person[0].lastName +"'s info: \n" + displayInfo(person));
@@ -78,8 +82,7 @@ function mainMenu(person, people){
     break;
     case "descendants":
       id = person[0].id;
-      let count = 0;
-      let searchResults = findDescendants(id, people, );//(Jack Pafoy) (Annie Pafoy[13], Dave Pafoy [14], amii [15])
+      let searchResults = findDescendants(id, people);//(Jack Pafoy) (Annie Pafoy[13], Dave Pafoy [14], amii [15])
     break;
     case "restart":
     app(people); // restart
