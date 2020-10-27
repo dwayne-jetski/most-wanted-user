@@ -177,8 +177,8 @@ function searchByTrait(people, trait){
   let foundPerson;
   do{
     let search = prompt("What is the person's " + trait).toLowerCase();
-    if(search == "eye color"){
-      search = "eyeColor";
+    if(trait == "eye color"){
+      trait = "eyeColor";
     }
     foundPerson = people.filter(function(person){
       if(person[trait] == search){
