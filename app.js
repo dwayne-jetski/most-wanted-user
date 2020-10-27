@@ -24,16 +24,25 @@ function app(people){
 }
 
 function traits(people){
+  let searchResults = people;
   let traits = ["gender","eye color","dob","occupation","height","weight"];
   let moreTraits = "yes";
-  let searchResults = people;
+  
   while(moreTraits == "yes"){
     let promptTrait = promptFor("What trait do you know of the person? Enter one of the following: " + traits.join(", "),chars,traits).toLowerCase();
     searchResults = searchByTrait(searchResults, promptTrait);
     displayPeople(searchResults);
+    if(searchResults.length == 1){
+      break;
+    }
     moreTraits = promptFor("Do you know any other traits? Enter 'yes' or 'no'", chars,['yes','no']).toLowerCase();
     let indexTrait = traits.indexOf(promptTrait);
     traits.splice(indexTrait, 1);
+    
+  }
+  
+  if(searchResults.length == 1){
+    return searchResults;
   }
   
 }
