@@ -36,9 +36,17 @@ function traits(people){
       break;
     }
     moreTraits = promptFor("Do you know any other traits? Enter 'yes' or 'no'", chars,['yes','no']).toLowerCase();
+    if(moreTraits == 'no'){
+      let promptNext = promptFor("You need to know more traits to narrow down the list. Do you want to 'restart', or 'view' the current list",chars,['restart','view']);
+      if(promptNext == 'restart'){
+        app(people);
+      }else if("view"){
+        displayPeople(searchResults);
+        app(people);
+      }
+    }
     let indexTrait = traits.indexOf(promptTrait);
     traits.splice(indexTrait, 1);
-    
   }
   
   if(searchResults.length == 1){
