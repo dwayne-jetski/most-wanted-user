@@ -5,6 +5,54 @@
     <title>devCodeCamp &middot; Most Wanted</title>
   </head>
   <body>
+    <h1>Most Wanted Project</h1>
+
+    <form action="/action_page.php" method="get">
+      <button type="restart" value="Restart">Restart</button>
+      <button type="quit" value="Quit">Quit</button>
+
+
+      <p>Search by:</p>
+      <input type="radio" id="name" name="searchBy" value="name">
+      <label for="name">Name</label><br>
+      <input type="radio" id="trait" name="searchBy" value="trait">
+      <label for="trait">Trait</label><br>
+
+      <h3>Enter name of person</h3>
+      <label for="fname">First name:</label>
+      <input type="text" id="fname" name="fname"><br><br>
+      <label for="lname">Last name:</label>
+      <input type="text" id="lname" name="lname"><br><br>
+      
+      <p>Please select your trait:</p>
+      <input type="radio" id="gender" name="trait" value="gender">
+      <label for="gender">Gender</label><br>
+      <input type="radio" id="eyeColor" name="trait" value="eyeColor">
+      <label for="eyeColor">Eye Color</label><br>
+      <input type="radio" id="dob" name="trait" value="dob">
+      <label for="dob">Date of Birth</label><br>
+      <input type="radio" id="occupation" name="trait" value="occupation">
+      <label for="occupation">Occupation</label><br>
+      <input type="radio" id="height" name="trait" value="height">
+      <label for="height">Height</label><br>
+      <input type="radio" id="weight" name="trait" value="weight">
+      <label for="weight">Weight</label><br>
+
+      <p>Do you want to know thier:</p>
+      <input type="radio" id="info" name="displayMore" value="info">
+      <label for="info">Info</label><br>
+      <input type="radio" id="family" name="displayMore" value="family">
+      <label for="family">Family</label><br>
+      <input type="radio" id="descendants" name="displayMore" value="descendants">
+      <label for="descendants">Descendants</label><br>
+    </form>
+
+    
+    <!-- pick specific trais from list -->
+
+    <!-- display people -->
+
+
     <button onclick="app(data)">Start Searching</button>
     <script src="data.js"></script>
     <script src="app.js"></script>

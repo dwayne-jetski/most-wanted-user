@@ -200,6 +200,7 @@ function searchByTrait(people, trait){
     foundPerson = people.filter(function(person){
       if(person[trait] == search){
         return true;
+        //add if person does not exist
       }
       else{
         return false;
