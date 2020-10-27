@@ -176,7 +176,7 @@ function searchByName(people){
 function searchByTrait(people, trait){
   let foundPerson;
   do{
-    let search = prompt("What is the person's " + trait).toLowerCase;
+    let search = prompt("What is the person's " + trait).toLowerCase();
     if(search == "eye color"){
       search = "eyeColor";
     }
@@ -227,7 +227,6 @@ function promptFor(question, valid, options){
 // helper function to pass in as default promptFor validation
 function chars(input,options){ 
   let inputLow = input.toLowerCase();
-  
   if(options.includes(inputLow)){
     return inputLow;
   }
