@@ -5,7 +5,7 @@ Build all of your functions for displaying and gathering information below (GUI)
 
 // app is the function called to start the entire application
 function app(people){
-  let searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
+  let searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", chars,['yes','no']).toLowerCase();
   let searchResults;
   switch(searchType){
     case 'yes':
@@ -24,19 +24,18 @@ function app(people){
 }
 
 function traits(people){
-  let traits = ["gender","eyeColor","dob","occupation","height","weight"];
+  let traits = ["gender","eye color","dob","occupation","height","weight"];
   let moreTraits = "yes";
   let searchResults = people;
   while(moreTraits == "yes"){
-    let promptTrait = prompt("What trait do you know of the person? Enter one of the following: " + traits.join(", "));
+    let promptTrait = promptFor("What trait do you know of the person? Enter one of the following: " + traits.join(", "),chars,traits).toLowerCase();
     searchResults = searchByTrait(searchResults, promptTrait);
     displayPeople(searchResults);
-    moreTraits = promptFor("Do you know any other traits? Enter 'yes' or 'no'", yesNo).toLowerCase();
+    moreTraits = promptFor("Do you know any other traits? Enter 'yes' or 'no'", chars,['yes','no']).toLowerCase();
     let indexTrait = traits.indexOf(promptTrait);
     traits.splice(indexTrait, 1);
   }
   
-
 }
 
 // Menu function to call once you find who you are looking for
@@ -121,31 +120,41 @@ function displayInfo(person){
 }
 
 function searchByName(people){
-  let firstName = promptFor("What is the person's first name?", chars);
-  let lastName = promptFor("What is the person's last name?", chars);
+  let foundPerson;
+  do{
+    let firstName = prompt("What is the person's first name?").toLowerCase();
+    let lastName = prompt("What is the person's last name?").toLowerCase();
 
-  let foundPerson = people.filter(function(person){
-    if(person.firstName === firstName && person.lastName === lastName){
-      return true;
-    }
-    else{
-      return false;
-    }
-  });
+    foundPerson = people.filter(function(person){
+      if(person.firstName.toLowerCase() === firstName && person.lastName.toLowerCase() === lastName){
+        return true;
+      }
+      else{
+        return false;
+      }
+    });
+  }while(foundPerson.length==0);
+  
   return foundPerson;
 }
 
 function searchByTrait(people, trait){
-  let search = promptFor("What is the person's " + trait, chars);
-
-  let foundPerson = people.filter(function(person){
-    if(person[trait] == search){
-      return true;
+  let foundPerson;
+  do{
+    let search = prompt("What is the person's " + trait).toLowerCase;
+    if(search == "eye color"){
+      search = "eyeColor";
     }
-    else{
-      return false;
-    }
-  });
+    foundPerson = people.filter(function(person){
+      if(person[trait] == search){
+        return true;
+      }
+      else{
+        return false;
+      }
+    });
+  }while(foundPerson.length==0);
+  
   return foundPerson;
 }
 
@@ -166,19 +175,28 @@ function displayPerson(person){
 }
 
 // function that prompts and validates user input
-function promptFor(question, valid){
+function promptFor(question, valid, options){
   do{
     var response = prompt(question).trim();
-  } while(!response || !valid(response));
+  } while(!response || !valid(response,options));
   return response;
 }
 
-// helper function to pass into promptFor to validate yes/no answers
-function yesNo(input){
-  return input.toLowerCase() == "yes" || input.toLowerCase() == "no";
+function promptDetails(question, options){
+  do{
+    var response = prompt(question).trim();
+  } while(!response || !valid(response,options));
+  return response;
 }
 
+
 // helper function to pass in as default promptFor validation
-function chars(input){
-  return true; // default validation only
+function chars(input,options){ 
+  let inputLow = input.toLowerCase();
+  
+  if(options.includes(inputLow)){
+    return inputLow;
+  }
 }
+//'info', 'family', or 'descendants'
+//"gender","eyeColor","dob","occupation","height","weight"
