@@ -82,7 +82,7 @@ function mainMenu(person, people){
     break;
     case "descendants":
       id = person[0].id;
-      let searchResults = findDescendants(id, people);//(Jack Pafoy) (Annie Pafoy[13], Dave Pafoy [14], amii [15])
+      findDescendants(id, people);//(Jack Pafoy) (Annie Pafoy[13], Dave Pafoy [14], amii [15])
     break;
     case "restart":
     app(people); // restart
