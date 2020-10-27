@@ -48,7 +48,7 @@ function mainMenu(person, people){
     return app(people); // restart
   }
 
-  let displayOption = prompt("Found " + person[0].firstName + " " + person[0].lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
+  let displayOption = promptFor("Found " + person[0].firstName + " " + person[0].lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'",chars,['info','family','descendants']);
   let id = [];
   switch(displayOption){
     case "info":
@@ -199,14 +199,6 @@ function promptFor(question, valid, options){
   return response;
 }
 
-function promptDetails(question, options){
-  do{
-    var response = prompt(question).trim();
-  } while(!response || !valid(response,options));
-  return response;
-}
-
-
 // helper function to pass in as default promptFor validation
 function chars(input,options){ 
   let inputLow = input.toLowerCase();
@@ -215,5 +207,3 @@ function chars(input,options){
     return inputLow;
   }
 }
-//'info', 'family', or 'descendants'
-//"gender","eyeColor","dob","occupation","height","weight"
