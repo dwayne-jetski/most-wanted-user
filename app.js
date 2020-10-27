@@ -57,11 +57,7 @@ function mainMenu(person, people){
     case "family":
       id = person[0].id;
       let parentsId = person[0].parents;
-      let family = [] 
-      family = findSiblings(parentsId, people, id);
-      family.push(findSpouse(id, people));
-      family = arrayCleanup(family);
-      displayPeople(family);
+      displayFamily(id, parentsId, people)
     break;
     case "descendants":
       id = person[0].id;
@@ -86,7 +82,7 @@ function arrayCleanup(array){
   return array;
 }
 
-//STILL NEEDS A LOT OF WORK
+
  function findDescendants (id, people){
 
   let descendantsArray = people.filter(function(el){
@@ -103,7 +99,29 @@ function arrayCleanup(array){
   }
   return descendantsArray
 }
- 
+
+function displayFamily(id, parentsId,  people){
+
+  
+      let siblings = findSiblings(parentsId, people, id);
+      let spouse = findSpouse(id, people);
+      siblings = arrayCleanup(siblings);
+
+  if (siblings.length === 0 && spouse.length === 0){
+    alert("No immediate family members found");
+  }
+  else if(siblings.length > 0 && spouse.length === 0){
+    alert("Spouse: None found\n" + "Siblings: " + printPeople(siblings));
+  }
+  else if(siblings.length === 0 && spouse.length > 0){
+    alert("Spouse: " + printPeople(spouse) + "\nSiblings: None Found");
+  }
+  else{
+    alert("Spouse: " + printPeople(spouse) + "\nSiblings: " + printPeople(siblings));
+  }
+
+}
+
 function findSpouse (id, people){
 
   let foundPerson = people.filter(function(person){
@@ -173,6 +191,13 @@ function searchByTrait(people, trait){
   }while(foundPerson.length==0);
   
   return foundPerson;
+}
+
+
+function printPeople(people){
+  return people.map(function(person){
+    return person.firstName + " " + person.lastName;
+  }).join("\n")
 }
 
 // alerts a list of people
